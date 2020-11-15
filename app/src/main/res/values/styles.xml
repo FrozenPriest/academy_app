@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="header">
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:shadowColor">#80000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">6</item>
+        <item name="android:shadowRadius">12</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

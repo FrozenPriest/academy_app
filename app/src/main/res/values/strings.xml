@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Academy App</string>
+    <string name="poster_of_the_movie">Poster of the movie</string>
+    <string name="avengers_end_game">"Avengers:\nEndgame"</string>
+    <string name="pg13">13+</string>
+    <string name="action_adventure_fantasy">Action, Adventure, Fantasy</string>
+    <string name="_125_reviews">125 reviews</string>
+    <string name="storyline">Storyline</string>
+
 </resources>
