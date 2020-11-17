@@ -30,13 +30,16 @@
         android:id="@+id/movie_poster"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="false"
         android:contentDescription="@string/poster_of_the_movie"
+        android:cropToPadding="false"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fading_poster"
-        android:background="@drawable/poster_avengers"/>
+        app:srcCompat="@drawable/poster_avengers"
+        android:foreground="@drawable/fading_poster"/>
 
     <TextView
         android:id="@+id/movie_name"
@@ -153,6 +156,22 @@
         app:layout_constraintEnd_toStartOf="@+id/textViewReviews"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textViewReviews" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="56dp"
+        android:drawableStart="@drawable/ic_baseline_arrow_back_ios_10"
+        android:drawablePadding="8dp"
+        android:text="@string/back"
+        android:textAlignment="viewStart"
+        android:textColor="#6D6D80"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

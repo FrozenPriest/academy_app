@@ -22,7 +22,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         val recyclerViewCast = findViewById<RecyclerView>(R.id.recyclerViewCast)
         recyclerViewCast.layoutManager = LinearLayoutPagerManager(this, LinearLayoutManager.HORIZONTAL, false, 4)
         recyclerViewCast.adapter = ItemAdapterCast(this, retrieveCast())
-      //  recyclerViewCast.
     }
 
     private fun retrieveCast(): List<Person> {
