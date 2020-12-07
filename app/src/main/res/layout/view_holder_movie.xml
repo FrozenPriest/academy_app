@@ -4,35 +4,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:layout_gravity="center_horizontal">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
     android:background="@drawable/movie_list_item_background">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewPoster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="48dp"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/poster_of_the_movie"
         android:cropToPadding="false"
         android:foreground="@drawable/fading_poster"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/movie_poster_list" />
+        app:srcCompat="@drawable/poster_avengers" />
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewAgeRestriction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -91,7 +93,7 @@
         android:textColor="#6D6D80"
         android:textSize="8sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPoster"
         app:layout_constraintStart_toEndOf="@id/ratingBar" />
 
     <TextView
@@ -105,7 +107,7 @@
         android:text="@string/avengers_end_game"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPoster" />
 
     <TextView
         android:id="@+id/textViewDuration"
@@ -113,7 +115,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/_137_min"
+        android:text="@string/count_min"
         android:textAllCaps="true"
         android:textColor="#6D6D80"
         android:textSize="8sp"
@@ -124,7 +126,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewMovieName" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageViewFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

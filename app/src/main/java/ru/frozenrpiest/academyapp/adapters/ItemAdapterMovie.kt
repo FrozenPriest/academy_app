@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.dataclasses.Movie
-import ru.frozenrpiest.academyapp.dataclasses.Person
 
 class ItemAdapterMovie (val context: Context, val items: List<Movie>) :
     RecyclerView.Adapter<ItemAdapterMovie.ViewHolder>() {
@@ -22,12 +23,26 @@ class ItemAdapterMovie (val context: Context, val items: List<Movie>) :
         )
         return ViewHolder(view).apply {
             textViewName = view.findViewById(R.id.textViewMovieName)
+            textViewDuration = view.findViewById(R.id.textViewDuration)
+            textViewReviews = view.findViewById(R.id.textViewReviews)
+            textViewAgeRestriction = view.findViewById(R.id.textViewAgeRestriction)
+            ratingBar = view.findViewById(R.id.ratingBar)
+            textViewGenres = view.findViewById(R.id.textViewGenres)
+            imageViewPoster = view.findViewById(R.id.imageViewPoster)
+
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.textViewName.text = item.name
+        holder.textViewDuration.text = String.format(context.resources.getString(R.string.count_min), item.duration)
+        holder.textViewReviews.text = item.reviewCount.toString()
+        holder.textViewAgeRestriction.text = item.ageRestriction
+        holder.ratingBar.rating = item.rating
+        holder.textViewGenres.text = item.genres.toString()
+        Glide.with(context).load(item.posterPreview).into(holder.imageViewPoster)
+
     }
     override fun getItemCount(): Int {
         return items.size
@@ -36,6 +51,14 @@ class ItemAdapterMovie (val context: Context, val items: List<Movie>) :
 
     class ViewHolder(view: View) :RecyclerView.ViewHolder(view) {
         lateinit var textViewName:TextView
+        lateinit var textViewDuration:TextView
+        lateinit var textViewReviews:TextView
+        lateinit var textViewAgeRestriction:TextView
+        lateinit var ratingBar: RatingBar
+        lateinit var textViewGenres:TextView
+        lateinit var imageViewPoster:ImageView
+
+
     }
 
 }
