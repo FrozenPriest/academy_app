@@ -9,10 +9,11 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.frozenrpiest.academyapp.DataUtils
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.dataclasses.Movie
 
-class ItemAdapterMovie (val context: Context, val items: List<Movie>) :
+class ItemAdapterMovie (val context: Context, val items: List<Movie>, private val clickListener: OnMovieClicked) :
     RecyclerView.Adapter<ItemAdapterMovie.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,8 +41,12 @@ class ItemAdapterMovie (val context: Context, val items: List<Movie>) :
         holder.textViewReviews.text = String.format(context.resources.getString(R.string.count_reviews), item.reviewCount)
         holder.textViewAgeRestriction.text = item.ageRestriction
         holder.ratingBar.rating = item.rating
-        holder.textViewGenres.text = item.genres.toString()
+        holder.textViewGenres.text = DataUtils.formatGenres(item.genres)
         Glide.with(context).load(item.posterPreview).into(holder.imageViewPoster)
+
+        holder.itemView.setOnClickListener {
+            clickListener.onClick(items[position])
+        }
 
     }
     override fun getItemCount(): Int {
@@ -61,4 +66,8 @@ class ItemAdapterMovie (val context: Context, val items: List<Movie>) :
 
     }
 
+}
+
+interface OnMovieClicked {
+    fun onClick(movie: Movie)
 }

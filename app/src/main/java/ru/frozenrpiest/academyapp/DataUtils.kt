@@ -3,6 +3,7 @@ package ru.frozenrpiest.academyapp
 import android.content.Context
 import ru.frozenrpiest.academyapp.dataclasses.Movie
 import ru.frozenrpiest.academyapp.dataclasses.Actor
+import java.lang.StringBuilder
 
 object DataUtils {
 
@@ -33,5 +34,14 @@ object DataUtils {
                 movie.copy(name = "Avongers", rating = 2.5f, genres = listOf("Actions, not Adventure"), posterPreview = R.drawable.poster_tenet),
                 movie.copy(name = "New name", rating = 5.0f, reviewCount = 45, duration = 555, ageRestriction = "16+", posterPreview = R.drawable.poster_tenet)
         )
+    }
+
+    fun formatGenres(genres: List<String>): CharSequence? {
+        val result = StringBuilder()
+        for (i in genres.indices) {
+                result.append(genres[i])
+            if(i < genres.size-1) result.append(",")
+        }
+        return result.toString()
     }
 }

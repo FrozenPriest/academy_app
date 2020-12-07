@@ -156,7 +156,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewCast" />
 
 
-
         <Button
             android:id="@+id/buttonBack"
             style="@android:style/Widget.DeviceDefault.Button.Borderless"
@@ -166,6 +165,7 @@
             android:layout_marginTop="56dp"
             android:drawableStart="@drawable/ic_baseline_arrow_back_ios_10"
             android:drawablePadding="8dp"
+            android:onClick="back"
             android:text="@string/back"
             android:textAlignment="viewStart"
             android:textColor="#6D6D80"
