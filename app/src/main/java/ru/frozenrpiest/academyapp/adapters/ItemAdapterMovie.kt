@@ -37,7 +37,7 @@ class ItemAdapterMovie (val context: Context, val items: List<Movie>) :
         val item = items[position]
         holder.textViewName.text = item.name
         holder.textViewDuration.text = String.format(context.resources.getString(R.string.count_min), item.duration)
-        holder.textViewReviews.text = item.reviewCount.toString()
+        holder.textViewReviews.text = String.format(context.resources.getString(R.string.count_reviews), item.reviewCount)
         holder.textViewAgeRestriction.text = item.ageRestriction
         holder.ratingBar.rating = item.rating
         holder.textViewGenres.text = item.genres.toString()

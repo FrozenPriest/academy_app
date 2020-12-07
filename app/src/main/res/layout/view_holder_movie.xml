@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="6dp"
         android:max="5"
         android:numStars="5"
         android:progressBackgroundTint="#6D6D80"
@@ -84,16 +84,18 @@
 
     <TextView
         android:id="@+id/textViewReviews"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/_125_reviews"
+        android:text="@string/count_reviews"
         android:textAllCaps="true"
         android:textColor="#6D6D80"
         android:textSize="8sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewPoster"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ratingBar" />
 
     <TextView

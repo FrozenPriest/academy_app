@@ -39,7 +39,7 @@ class MovieDetailsFragment : Fragment() {
     private fun setupCast() {
         val recyclerViewCast = view?.findViewById<RecyclerView>(R.id.recyclerViewCast)!!
         recyclerViewCast.layoutManager = LinearLayoutPagerManager(view?.context!!, LinearLayoutManager.HORIZONTAL, false, 4)
-        recyclerViewCast.adapter = ItemAdapterCast(view?.context!!, DataUtils.retrieveCast(view?.context!!))
+        recyclerViewCast.adapter = ItemAdapterCast(view?.context!!, DataUtils.retrieveCast())
     }
 
     companion object {
