@@ -17,7 +17,7 @@ class MoviesListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true;
+        retainInstance = true
     }
 
     override fun onCreateView(
@@ -33,10 +33,12 @@ class MoviesListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        val recyclerViewCast = view?.findViewById<RecyclerView>(R.id.recyclerViewMoviesList)!!
-        recyclerViewCast.layoutManager = GridLayoutManager(view?.context, 2, GridLayoutManager.VERTICAL, false)
-
-        recyclerViewCast.adapter = ItemAdapterMovie(view?.context!!, DataUtils.retrieveMovies(), clickListener)
+        view?.let {
+            it.findViewById<RecyclerView>(R.id.recyclerViewMoviesList).apply {
+                layoutManager = GridLayoutManager(it.context, 2, GridLayoutManager.VERTICAL, false)
+                adapter = ItemAdapterMovie(it.context, DataUtils.retrieveMovies(), clickListener)
+            }
+        }
     }
 
     private val clickListener = object : OnMovieClicked {
