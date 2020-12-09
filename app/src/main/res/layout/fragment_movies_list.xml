@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/movie_details_background"
-    tools:context=".MoviesListFragment"
-    >
+    tools:context=".MoviesListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMoviesList"
@@ -40,9 +39,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:contentDescription="@string/movies_list"
         android:src="@drawable/movies_list_icon"
         app:layout_constraintBottom_toBottomOf="@+id/textViewMoviesListLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewMoviesListLabel"
-        android:contentDescription="@string/movies_list" />
+        app:layout_constraintTop_toTopOf="@+id/textViewMoviesListLabel" />
 </androidx.constraintlayout.widget.ConstraintLayout>

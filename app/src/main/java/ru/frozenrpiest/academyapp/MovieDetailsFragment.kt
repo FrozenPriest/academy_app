@@ -22,7 +22,7 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true;
+        retainInstance = true
         arguments?.let {
             movie = it.getParcelable<Movie>(ARG_MOVIE)!!
         }
@@ -75,9 +75,13 @@ class MovieDetailsFragment : Fragment() {
 
 
     private fun setupCast() {
-        val recyclerViewCast = view?.findViewById<RecyclerView>(R.id.recyclerViewCast)!!
-        recyclerViewCast.layoutManager = LinearLayoutPagerManager(view?.context!!, LinearLayoutManager.HORIZONTAL, false, 4)
-        recyclerViewCast.adapter = ItemAdapterCast(view?.context!!, DataUtils.retrieveCast().shuffled().take(5))
+        view?.let{
+            it.findViewById<RecyclerView>(R.id.recyclerViewCast).apply{
+                layoutManager = LinearLayoutPagerManager(view?.context!!, LinearLayoutManager.HORIZONTAL, false, 4)
+                adapter = ItemAdapterCast(it.context, DataUtils.retrieveCast().shuffled().take(5))
+            }
+        }
+
     }
 
     companion object {
