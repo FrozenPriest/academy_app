@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.frozenrpiest.academyapp.R
-import ru.frozenrpiest.academyapp.dataclasses.Person
+import ru.frozenrpiest.academyapp.dataclasses.Actor
 
-class ItemAdapterCast (val context: Context, val items: List<Person>) :
+class ItemAdapterCast (val context: Context, val items: List<Actor>) :
                                 RecyclerView.Adapter<ItemAdapterCast.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =  LayoutInflater.from(context).inflate(
-                R.layout.cast_list_item,
+                R.layout.view_holder_actor,
                 parent,
                 false
         )
@@ -28,7 +29,7 @@ class ItemAdapterCast (val context: Context, val items: List<Person>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.textViewName.text = item.name
-        holder.imageViewPhoto.setImageDrawable(item.image)
+        Glide.with(context).load(item.image).into(holder.imageViewPhoto)
     }
     override fun getItemCount(): Int {
         return items.size
