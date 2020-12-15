@@ -23,7 +23,7 @@ class MovieDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
-        arguments?.let {
+        savedInstanceState?.let {
             movie = it.getParcelable(ARG_MOVIE)!!
         }
     }
