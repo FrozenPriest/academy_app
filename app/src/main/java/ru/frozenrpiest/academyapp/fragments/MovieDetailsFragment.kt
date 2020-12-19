@@ -1,6 +1,5 @@
-package ru.frozenrpiest.academyapp
+package ru.frozenrpiest.academyapp.fragments
 
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +12,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.frozenrpiest.academyapp.DataUtils
+import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.adapters.ItemAdapterActors
 import ru.frozenrpiest.academyapp.adapters.LinearLayoutPagerManager
 import ru.frozenrpiest.academyapp.data.Movie
@@ -68,17 +69,18 @@ class MovieDetailsFragment : Fragment() {
         context?.resources?.getString(R.string.age_restriction)?.let {
             String.format(it, movie.minimumAge)
         }
-        view?.findViewById<TextView>(R.id.textViewGenres)?.text = DataUtils.formatGenres(movie.genres)
+        view?.findViewById<TextView>(R.id.textViewGenres)?.text =
+            DataUtils.formatGenres(movie.genres)
         view?.findViewById<TextView>(R.id.textViewReviews)?.text =
             context?.resources?.getString(R.string.count_reviews)?.let {
                 String.format(it, movie.numberOfRatings)
             }
-        view?.findViewById<RatingBar>(R.id.ratingBar)?.rating = DataUtils.roundRating(movie.ratings)
+        view?.findViewById<RatingBar>(R.id.ratingBar)?.rating = DataUtils.roundRating(movie.ratings / 2)
         view?.findViewById<TextView>(R.id.textViewStorylineContent)?.text = movie.overview
         context?.let {
             val backdrop = view?.findViewById<ImageView>(R.id.movie_poster)
             backdrop?.let {
-                Glide.with(it).load(movie.backdrop).into(it)
+                Glide.with(it).load(movie.backdrop).centerCrop().into(it)  //todo error
             }
         }
 
@@ -90,7 +92,6 @@ class MovieDetailsFragment : Fragment() {
         if(movie.actors.isEmpty()) {
             view?.findViewById<TextView>(R.id.textViewCast)?.visibility = View.GONE
             view?.findViewById<RecyclerView>(R.id.recyclerViewCast)?.visibility = View.GONE
-
         } else {
             view?.let {
                 it.findViewById<RecyclerView>(R.id.recyclerViewCast).apply {

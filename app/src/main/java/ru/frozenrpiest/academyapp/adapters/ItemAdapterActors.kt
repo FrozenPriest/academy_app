@@ -29,7 +29,7 @@ class ItemAdapterActors (val context: Context, val items: List<Actor>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.textViewName.text = item.name
-        Glide.with(context).load(item.picture).into(holder.imageViewPhoto)//todo добавить error
+        Glide.with(context).load(item.picture).centerCrop().into(holder.imageViewPhoto)//todo добавить error
     }
     override fun getItemCount(): Int {
         return items.size

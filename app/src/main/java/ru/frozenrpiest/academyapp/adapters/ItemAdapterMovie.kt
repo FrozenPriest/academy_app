@@ -61,7 +61,7 @@ class ItemAdapterMovie(
             context.resources.getString(R.string.age_restriction),
             item.minimumAge
         )
-        holder.ratingBar.rating = DataUtils.roundRating(item.ratings)
+        holder.ratingBar.rating = DataUtils.roundRating(item.ratings / 2)
         holder.textViewGenres.text = DataUtils.formatGenres(item.genres)
         Glide.with(context).load(item.poster).into(holder.imageViewPoster)//todo error
 

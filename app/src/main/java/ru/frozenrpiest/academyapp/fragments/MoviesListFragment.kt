@@ -1,4 +1,4 @@
-package ru.frozenrpiest.academyapp
+package ru.frozenrpiest.academyapp.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
+import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.adapters.ItemAdapterMovie
 import ru.frozenrpiest.academyapp.adapters.OnMovieClicked
 import ru.frozenrpiest.academyapp.data.Movie
 import ru.frozenrpiest.academyapp.data.Repository
-import ru.frozenrpiest.academyapp.data.loadMovies
 
 
 class MoviesListFragment : Fragment() {
