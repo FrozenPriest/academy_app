@@ -1,18 +1,21 @@
 package ru.frozenrpiest.academyapp
 
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.frozenrpiest.academyapp.adapters.ItemAdapterCast
+import com.bumptech.glide.Glide
+import ru.frozenrpiest.academyapp.adapters.ItemAdapterActors
 import ru.frozenrpiest.academyapp.adapters.LinearLayoutPagerManager
-import ru.frozenrpiest.academyapp.dataclasses.Movie
+import ru.frozenrpiest.academyapp.data.Movie
 
 
 private const val ARG_MOVIE = "movie"
@@ -60,28 +63,47 @@ class MovieDetailsFragment : Fragment() {
 
 
     private fun setupView() {
-        view?.findViewById<TextView>(R.id.movie_name)?.text = movie.name
-        view?.findViewById<TextView>(R.id.textViewAgeRestriction)?.text = movie.ageRestriction
+        view?.findViewById<TextView>(R.id.movie_name)?.text = movie.title
+        view?.findViewById<TextView>(R.id.textViewAgeRestriction)?.text =
+        context?.resources?.getString(R.string.age_restriction)?.let {
+            String.format(it, movie.minimumAge)
+        }
         view?.findViewById<TextView>(R.id.textViewGenres)?.text = DataUtils.formatGenres(movie.genres)
         view?.findViewById<TextView>(R.id.textViewReviews)?.text =
             context?.resources?.getString(R.string.count_reviews)?.let {
-                String.format(it, movie.reviewCount)
+                String.format(it, movie.numberOfRatings)
             }
-        view?.findViewById<RatingBar>(R.id.ratingBar)?.rating = movie.rating
-        //TODO storyline
-        //TODO background image
+        view?.findViewById<RatingBar>(R.id.ratingBar)?.rating = DataUtils.roundRating(movie.ratings)
+        view?.findViewById<TextView>(R.id.textViewStorylineContent)?.text = movie.overview
+        context?.let {
+            val backdrop = view?.findViewById<ImageView>(R.id.movie_poster)
+            backdrop?.let {
+                Glide.with(it).load(movie.backdrop).into(it)
+            }
+        }
+
         setupCast()
     }
 
 
     private fun setupCast() {
-        view?.let{
-            it.findViewById<RecyclerView>(R.id.recyclerViewCast).apply{
-                layoutManager = LinearLayoutPagerManager(it.context, LinearLayoutManager.HORIZONTAL, false, 4)
-                adapter = ItemAdapterCast(it.context, DataUtils.retrieveCast().shuffled().take(5))
+        if(movie.actors.isEmpty()) {
+            view?.findViewById<TextView>(R.id.textViewCast)?.visibility = View.GONE
+            view?.findViewById<RecyclerView>(R.id.recyclerViewCast)?.visibility = View.GONE
+
+        } else {
+            view?.let {
+                it.findViewById<RecyclerView>(R.id.recyclerViewCast).apply {
+                    layoutManager = LinearLayoutPagerManager(
+                        it.context,
+                        LinearLayoutManager.HORIZONTAL,
+                        false,
+                        4
+                    )
+                    adapter = ItemAdapterActors(it.context, movie.actors)
+                }
             }
         }
-
     }
 
     companion object {

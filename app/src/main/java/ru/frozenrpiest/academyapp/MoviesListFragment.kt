@@ -7,17 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
 import ru.frozenrpiest.academyapp.adapters.ItemAdapterMovie
 import ru.frozenrpiest.academyapp.adapters.OnMovieClicked
-import ru.frozenrpiest.academyapp.dataclasses.Movie
+import ru.frozenrpiest.academyapp.data.Movie
+import ru.frozenrpiest.academyapp.data.Repository
+import ru.frozenrpiest.academyapp.data.loadMovies
 
 
 class MoviesListFragment : Fragment() {
-
+    lateinit var repository:Repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+        repository = Repository()
     }
 
     override fun onCreateView(
@@ -36,9 +40,11 @@ class MoviesListFragment : Fragment() {
         view?.let {
             it.findViewById<RecyclerView>(R.id.recyclerViewMoviesList).apply {
                 layoutManager = GridLayoutManager(it.context, 2, GridLayoutManager.VERTICAL, false)
-                adapter = ItemAdapterMovie(it.context, DataUtils.retrieveMovies(), clickListener)
+                adapter = ItemAdapterMovie(it.context, emptyList(), clickListener)
+                repository.loadMoviesIntoAdapter(it.context, this@apply.adapter as ItemAdapterMovie)
             }
         }
+
     }
 
     private val clickListener = object : OnMovieClicked {

@@ -7,14 +7,26 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.frozenrpiest.academyapp.DataUtils
 import ru.frozenrpiest.academyapp.R
-import ru.frozenrpiest.academyapp.dataclasses.Movie
+import ru.frozenrpiest.academyapp.data.Movie
 
-class ItemAdapterMovie (val context: Context, val items: List<Movie>, private val clickListener: OnMovieClicked) :
+
+class ItemAdapterMovie(
+    val context: Context,
+    var items: List<Movie>,
+    private val clickListener: OnMovieClicked
+) :
     RecyclerView.Adapter<ItemAdapterMovie.ViewHolder>() {
+
+    fun bindMovies(newMovies: List<Movie>) {
+        println("Binding movies")
+        items = newMovies
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =  LayoutInflater.from(context).inflate(
@@ -36,13 +48,22 @@ class ItemAdapterMovie (val context: Context, val items: List<Movie>, private va
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.textViewName.text = item.name
-        holder.textViewDuration.text = String.format(context.resources.getString(R.string.count_min), item.duration)
-        holder.textViewReviews.text = String.format(context.resources.getString(R.string.count_reviews), item.reviewCount)
-        holder.textViewAgeRestriction.text = item.ageRestriction
-        holder.ratingBar.rating = item.rating
+        holder.textViewName.text = item.title
+        holder.textViewDuration.text = String.format(
+            context.resources.getString(R.string.count_min),
+            item.runtime
+        )
+        holder.textViewReviews.text = String.format(
+            context.resources.getString(R.string.count_reviews),
+            item.numberOfRatings
+        )
+        holder.textViewAgeRestriction.text = String.format(
+            context.resources.getString(R.string.age_restriction),
+            item.minimumAge
+        )
+        holder.ratingBar.rating = DataUtils.roundRating(item.ratings)
         holder.textViewGenres.text = DataUtils.formatGenres(item.genres)
-        Glide.with(context).load(item.posterPreview).into(holder.imageViewPoster)
+        Glide.with(context).load(item.poster).into(holder.imageViewPoster)//todo error
 
         holder.itemView.setOnClickListener {
             clickListener.onClick(items[position])
