@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.frozenrpiest.academyapp.DataUtils
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.data.Movie
@@ -63,7 +64,7 @@ class ItemAdapterMovie(
         )
         holder.ratingBar.rating = DataUtils.roundRating(item.ratings / 2)
         holder.textViewGenres.text = DataUtils.formatGenres(item.genres)
-        Glide.with(context).load(item.poster).into(holder.imageViewPoster)//todo error
+        Glide.with(context).load(item.poster).diskCacheStrategy(DiskCacheStrategy.ALL).error(R.drawable.no_image).into(holder.imageViewPoster)
 
         holder.itemView.setOnClickListener {
             clickListener.onClick(items[position])

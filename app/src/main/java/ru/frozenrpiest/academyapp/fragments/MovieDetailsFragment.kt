@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.frozenrpiest.academyapp.DataUtils
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.adapters.ItemAdapterActors
@@ -80,7 +81,7 @@ class MovieDetailsFragment : Fragment() {
         context?.let {
             val backdrop = view?.findViewById<ImageView>(R.id.movie_poster)
             backdrop?.let {
-                Glide.with(it).load(movie.backdrop).centerCrop().into(it)  //todo error
+                Glide.with(it).load(movie.backdrop).diskCacheStrategy(DiskCacheStrategy.ALL).error(R.drawable.no_image).centerCrop().into(it)
             }
         }
 
