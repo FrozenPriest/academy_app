@@ -64,7 +64,7 @@ class ItemAdapterMovie(
         )
         holder.ratingBar.rating = DataUtils.roundRating(item.ratings / 2)
         holder.textViewGenres.text = DataUtils.formatGenres(item.genres)
-        Glide.with(context).load(item.poster).diskCacheStrategy(DiskCacheStrategy.ALL).error(R.drawable.no_image).into(holder.imageViewPoster)
+        Glide.with(context).load(item.poster).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.no_image).error(R.drawable.no_image).into(holder.imageViewPoster)
 
         holder.itemView.setOnClickListener {
             clickListener.onClick(items[position])
