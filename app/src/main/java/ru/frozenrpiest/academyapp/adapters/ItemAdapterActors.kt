@@ -8,11 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.frozenrpiest.academyapp.R
-import ru.frozenrpiest.academyapp.dataclasses.Actor
+import ru.frozenrpiest.academyapp.data.Actor
 
-class ItemAdapterCast (val context: Context, val items: List<Actor>) :
-                                RecyclerView.Adapter<ItemAdapterCast.ViewHolder>() {
+class ItemAdapterActors (val context: Context, val items: List<Actor>) :
+                                RecyclerView.Adapter<ItemAdapterActors.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =  LayoutInflater.from(context).inflate(
@@ -29,7 +30,13 @@ class ItemAdapterCast (val context: Context, val items: List<Actor>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.textViewName.text = item.name
-        Glide.with(context).load(item.image).into(holder.imageViewPhoto)
+        Glide.with(context)
+                .load(item.picture)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.no_image)
+                .error(R.drawable.no_image)
+                .centerCrop()
+                .into(holder.imageViewPhoto)
     }
     override fun getItemCount(): Int {
         return items.size

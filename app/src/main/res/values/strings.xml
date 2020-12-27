@@ -15,5 +15,6 @@
     <string name="movies_list">Movies list</string>
     <string name="favorite">Add to favorite</string>
     <string name="actor_image">Actor image</string>
+    <string name="age_restriction">%1$d+</string>
 
 </resources>
