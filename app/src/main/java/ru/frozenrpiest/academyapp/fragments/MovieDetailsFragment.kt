@@ -81,7 +81,13 @@ class MovieDetailsFragment : Fragment() {
         context?.let {
             val backdrop = view?.findViewById<ImageView>(R.id.movie_poster)
             backdrop?.let {
-                Glide.with(it).load(movie.backdrop).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.no_image).error(R.drawable.no_image).centerCrop().into(it)
+                Glide.with(it)
+                        .load(movie.backdrop)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.no_image)
+                        .error(R.drawable.no_image)
+                        .centerCrop()
+                        .into(it)
             }
         }
 
