@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.roundToInt
 
 class LinearLayoutPagerManager(context: Context, orientation: Int, reverseLayout: Boolean, private val itemsPerPage: Int) : LinearLayoutManager(context,orientation,reverseLayout) {
 
@@ -31,7 +32,7 @@ class LinearLayoutPagerManager(context: Context, orientation: Int, reverseLayout
 
     private fun getItemSize(): Int {
         val pageSize = if (orientation == HORIZONTAL) width else height
-        return Math.round(pageSize.toFloat() / itemsPerPage)
+        return (pageSize.toFloat() / itemsPerPage).roundToInt()
     }
 
 
