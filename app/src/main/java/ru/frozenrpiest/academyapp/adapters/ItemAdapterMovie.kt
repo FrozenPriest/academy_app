@@ -54,8 +54,8 @@ class ItemAdapterMovie(
             context.resources.getString(R.string.count_min),
             item.runtime
         )
-        holder.textViewReviews.text = String.format(
-            context.resources.getString(R.string.count_reviews),
+        holder.textViewReviews.text = context.resources.getQuantityString(R.plurals.count_reviews,
+            item.numberOfRatings,
             item.numberOfRatings
         )
         holder.textViewAgeRestriction.text = String.format(

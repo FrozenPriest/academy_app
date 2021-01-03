@@ -91,7 +91,6 @@
             android:layout_marginStart="6dp"
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/count_reviews"
             android:textAllCaps="true"
             android:textColor="#6D6D80"
             android:textSize="12sp"

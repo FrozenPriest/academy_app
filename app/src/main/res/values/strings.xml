@@ -4,7 +4,6 @@
     <string name="avengers_end_game">Avengers: Endgame</string>
     <string name="pg13">13+</string>
     <string name="action_adventure_fantasy">Action, Adventure, Fantasy</string>
-    <string name="count_reviews">%1$d reviews</string>
     <string name="storyline">Storyline</string>
     <string name="storyline_avengers">After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.</string>
     <string name="rating">Rating</string>
@@ -16,5 +15,8 @@
     <string name="favorite">Add to favorite</string>
     <string name="actor_image">Actor image</string>
     <string name="age_restriction">%1$d+</string>
-
+    <plurals name="count_reviews">
+        <item quantity="one">%1$d review</item>
+        <item quantity="other">%1$d reviews</item>
+    </plurals>
 </resources>

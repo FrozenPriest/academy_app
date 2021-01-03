@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.frozenrpiest.academyapp.MovieViewModel
-import ru.frozenrpiest.academyapp.MovieViewModelFactory
+import ru.frozenrpiest.academyapp.fragments.viewmodels.MoviesListViewModel
+import ru.frozenrpiest.academyapp.fragments.viewmodels.MoviesListViewModelFactory
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.adapters.ItemAdapterMovie
 import ru.frozenrpiest.academyapp.adapters.OnMovieClicked
@@ -21,8 +21,8 @@ import ru.frozenrpiest.academyapp.data.Repository
 class MoviesListFragment : Fragment() {
     private lateinit var repository:Repository
 
-    private val viewModel by viewModels<MovieViewModel> {
-        MovieViewModelFactory(requireActivity().application)
+    private val viewModel by viewModels<MoviesListViewModel> {
+        MoviesListViewModelFactory(requireActivity().application)
     }
 
     private lateinit var recyclerView: RecyclerView
