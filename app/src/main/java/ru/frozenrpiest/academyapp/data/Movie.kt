@@ -1,7 +1,6 @@
 package ru.frozenrpiest.academyapp.data
 
 import android.os.Parcelable
-import kotlinx.serialization.Serializable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

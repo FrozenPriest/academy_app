@@ -1,7 +1,6 @@
 package ru.frozenrpiest.academyapp.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -18,18 +19,23 @@ import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.adapters.ItemAdapterActors
 import ru.frozenrpiest.academyapp.adapters.LinearLayoutPagerManager
 import ru.frozenrpiest.academyapp.data.Movie
+import ru.frozenrpiest.academyapp.fragments.viewmodels.MovieViewModel
+import ru.frozenrpiest.academyapp.fragments.viewmodels.MovieViewModelFactory
 
 
 private const val ARG_MOVIE = "movie"
 
 class MovieDetailsFragment : Fragment() {
-    private lateinit var movie: Movie
+
+    private val viewModel by viewModels<MovieViewModel> {
+        MovieViewModelFactory()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
         arguments?.let {
-            movie = it.getParcelable(ARG_MOVIE)!!
+            viewModel.reloadMovie(it.getParcelable(ARG_MOVIE)!!)
         }
     }
 
@@ -42,10 +48,11 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.movieData.observe(this.viewLifecycleOwner, this::setupView)
         savedInstanceState?.let {
-            movie = it.getParcelable(ARG_MOVIE)!!
+            viewModel.reloadMovie(it.getParcelable(ARG_MOVIE)!!)
         }
-        setupView()
 
         view.findViewById<Button>(R.id.buttonBack).setOnClickListener{onClickBack()}
     }
@@ -59,12 +66,12 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(ARG_MOVIE, movie)
+        outState.putParcelable(ARG_MOVIE, viewModel.movieData.value)
     }
 
 
 
-    private fun setupView() {
+    private fun setupView(movie: Movie) {
         view?.findViewById<TextView>(R.id.movie_name)?.text = movie.title
         view?.findViewById<TextView>(R.id.textViewAgeRestriction)?.text =
         context?.resources?.getString(R.string.age_restriction)?.let {
@@ -73,9 +80,7 @@ class MovieDetailsFragment : Fragment() {
         view?.findViewById<TextView>(R.id.textViewGenres)?.text =
             DataUtils.formatGenres(movie.genres)
         view?.findViewById<TextView>(R.id.textViewReviews)?.text =
-            context?.resources?.getString(R.string.count_reviews)?.let {
-                String.format(it, movie.numberOfRatings)
-            }
+            context?.resources?.getQuantityString(R.plurals.count_reviews, movie.numberOfRatings, movie.numberOfRatings)
         view?.findViewById<RatingBar>(R.id.ratingBar)?.rating = DataUtils.roundRating(movie.ratings / 2)
         view?.findViewById<TextView>(R.id.textViewStorylineContent)?.text = movie.overview
         context?.let {
@@ -91,11 +96,11 @@ class MovieDetailsFragment : Fragment() {
             }
         }
 
-        setupCast()
+        setupCast(movie)
     }
 
 
-    private fun setupCast() {
+    private fun setupCast(movie: Movie) {
         if(movie.actors.isEmpty()) {
             view?.findViewById<TextView>(R.id.textViewCast)?.visibility = View.GONE
             view?.findViewById<RecyclerView>(R.id.recyclerViewCast)?.visibility = View.GONE

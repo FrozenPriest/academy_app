@@ -12,7 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.data.Actor
 
-class ItemAdapterActors (val context: Context, val items: List<Actor>) :
+class ItemAdapterActors (private val context: Context, private val items: List<Actor>) :
                                 RecyclerView.Adapter<ItemAdapterActors.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

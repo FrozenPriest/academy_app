@@ -1,12 +1,16 @@
 package ru.frozenrpiest.academyapp.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ru.frozenrpiest.academyapp.fragments.viewmodels.MoviesListViewModel
+import ru.frozenrpiest.academyapp.fragments.viewmodels.MoviesListViewModelFactory
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.adapters.ItemAdapterMovie
 import ru.frozenrpiest.academyapp.adapters.OnMovieClicked
@@ -15,8 +19,14 @@ import ru.frozenrpiest.academyapp.data.Repository
 
 
 class MoviesListFragment : Fragment() {
-    lateinit var repository:Repository
+    private lateinit var repository:Repository
 
+    private val viewModel by viewModels<MoviesListViewModel> {
+        MoviesListViewModelFactory(requireActivity().application)
+    }
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var loadingBar: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
@@ -32,18 +42,27 @@ class MoviesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        recyclerView = view.findViewById(R.id.recyclerViewMoviesList)
+        loadingBar = view.findViewById(R.id.loadingBar)
+
         setupRecyclerView()
+        viewModel.moviesList.observe(requireActivity(), { repository.loadMoviesIntoAdapter(it, recyclerView.adapter as ItemAdapterMovie) })
+        viewModel.loadingState.observe(requireActivity(), {
+            if(it) {
+                recyclerView.visibility = View.GONE
+                loadingBar.visibility = View.VISIBLE
+            }else{
+                recyclerView.visibility = View.VISIBLE
+                loadingBar.visibility = View.GONE
+            }
+        })
     }
 
     private fun setupRecyclerView() {
-        view?.let {
-            it.findViewById<RecyclerView>(R.id.recyclerViewMoviesList).apply {
-                layoutManager = GridLayoutManager(it.context, 2, GridLayoutManager.VERTICAL, false)
-                adapter = ItemAdapterMovie(it.context, emptyList(), clickListener)
-                repository.loadMoviesIntoAdapter(it.context, this@apply.adapter as ItemAdapterMovie)
+       recyclerView.apply {
+                layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                adapter = ItemAdapterMovie(context, emptyList(), clickListener)
             }
-        }
-
     }
 
     private val clickListener = object : OnMovieClicked {

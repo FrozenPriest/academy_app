@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -17,7 +16,7 @@ import ru.frozenrpiest.academyapp.data.Movie
 
 
 class ItemAdapterMovie(
-    val context: Context,
+    private val context: Context,
     var items: List<Movie>,
     private val clickListener: OnMovieClicked
 ) :
@@ -54,8 +53,8 @@ class ItemAdapterMovie(
             context.resources.getString(R.string.count_min),
             item.runtime
         )
-        holder.textViewReviews.text = String.format(
-            context.resources.getString(R.string.count_reviews),
+        holder.textViewReviews.text = context.resources.getQuantityString(R.plurals.count_reviews,
+            item.numberOfRatings,
             item.numberOfRatings
         )
         holder.textViewAgeRestriction.text = String.format(
