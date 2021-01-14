@@ -4,33 +4,31 @@ import okhttp3.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import ru.frozenrpiest.academyapp.data.Movie
 
 interface MoviesApi {
 
     @GET("configuration?")
-    suspend fun getConfig(@Query("api_key") api_key: String): Response
+    suspend fun getConfig(@Query("api_key") api_key: String = RetrofitModule.getMoviesApiKey()): Response
 
-    @GET("movie/popular?&")
-    suspend fun getPopularMovies(
-        @Query("api_key") apiKey: String,
+    @GET("movie/popular?")
+    suspend fun getPopularMoviesId(
+        @Query("api_key") apiKey: String = RetrofitModule.getMoviesApiKey(),
         @Query("language") language: String,
         @Query("page") page: Int,
-    ):MovieNetwork
+    ):ResponseMoviesId
 
     @GET("movie/{id}?")
     suspend fun getMovieInfo(
         @Path("id") movieId: Int,
-        @Query("api-key") api_key: String,
-        //todo language??
-    )
+        @Query("api_key") api_key: String = RetrofitModule.getMoviesApiKey(),
+        @Query("language") language: String
+    ):ResponseMovieDetails
 
     @GET("movie/{id}/credits?")
-    suspend fun getCast(
+    suspend fun getMovieCrew(
         @Path("id") movieId: Int,
-        @Query("api_key") api_key: String,
+        @Query("api_key") api_key: String = RetrofitModule.getMoviesApiKey(),
         @Query("language") language: String
-    )
+    ):ResponseCrew
 
-    fun getMoviesApiKey()
 }
