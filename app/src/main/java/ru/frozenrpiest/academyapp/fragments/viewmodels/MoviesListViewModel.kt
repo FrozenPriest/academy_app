@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.frozenrpiest.academyapp.data.Movie
-import ru.frozenrpiest.academyapp.data.loadMovies
+import ru.frozenrpiest.academyapp.data.network.RetrofitModule
 
 class MoviesListViewModel(
     application: Application
@@ -23,10 +23,15 @@ class MoviesListViewModel(
     }
 
     fun reloadMovies() {
+        print("KEY: ${RetrofitModule.getMoviesApiKey()}")
         viewModelScope.launch {
             _mutableLoadingState.value = true
 
-            _mutableMovieList.value = loadMovies(getApplication())
+            _mutableMovieList.value = listOf(RetrofitModule.moviesApi.getPopularMovies(
+                apiKey = RetrofitModule.getMoviesApiKey(),
+                language = "EN-US",
+                page = 1
+            ))
 
             _mutableLoadingState.value = false
 
