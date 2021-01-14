@@ -1,25 +1,34 @@
-package ru.frozenrpiest.academyapp.data
+package ru.frozenrpiest.academyapp.data.network
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.frozenrpiest.academyapp.BuildConfig
-import ru.frozenrpiest.academyapp.data.network.GenresItem
-import ru.frozenrpiest.academyapp.data.network.ResponseCrew
-import ru.frozenrpiest.academyapp.data.network.RetrofitModule
+import ru.frozenrpiest.academyapp.data.Actor
+import ru.frozenrpiest.academyapp.data.Genre
+import ru.frozenrpiest.academyapp.data.Movie
+import java.util.*
 
-private val lang = "en-US"
 
 internal suspend fun loadMoviesNetwork(): List<Movie> = withContext(Dispatchers.IO) {
-    val moviesId = RetrofitModule.moviesApi.getPopularMoviesId(language = lang, page = 1)
+    val moviesId = RetrofitModule.moviesApi.getPopularMoviesId(
+        language = Locale.getDefault().toLanguageTag(),
+        page = 1
+    )
     println("Popular movies id loaded")
 
     val movies = mutableListOf<Movie>()
 
     moviesId.results.forEach{
         println("Movie: id = ${it.id}")
-        val movieDetails = RetrofitModule.moviesApi.getMovieInfo(it.id, language = lang)
+        val movieDetails = RetrofitModule.moviesApi.getMovieInfo(
+            it.id,
+            language = Locale.getDefault().toLanguageTag()
+        )
         println("MovieDetails loaded ")
-        val movieCrewNetwork = RetrofitModule.moviesApi.getMovieCrew(it.id, language = lang)
+        val movieCrewNetwork = RetrofitModule.moviesApi.getMovieCrew(
+            it.id,
+            language = Locale.getDefault().toLanguageTag()
+        )
         println("Crew loaded")
         val cast = parseActorsNetwork(movieCrewNetwork)
         val genres = parseGenresNetwork(movieDetails.genres)
@@ -27,7 +36,7 @@ internal suspend fun loadMoviesNetwork(): List<Movie> = withContext(Dispatchers.
             Movie(
                 id = movieDetails.id,
                 title = movieDetails.title,
-                overview = movieDetails.overview ?: "Overview is missing!", //todo resource
+                overview = movieDetails.overview,
                 poster =  BuildConfig.BASE_URL_POSTER + (movieDetails.posterPath ?: ""),
                 backdrop =  BuildConfig.BASE_URL_BACKDROP + (movieDetails.backdropPath ?: ""),
                 ratings = movieDetails.voteAverage,

@@ -82,11 +82,11 @@ class MovieDetailsFragment : Fragment() {
         view?.findViewById<TextView>(R.id.textViewReviews)?.text =
             context?.resources?.getQuantityString(R.plurals.count_reviews, movie.numberOfRatings, movie.numberOfRatings)
         view?.findViewById<RatingBar>(R.id.ratingBar)?.rating = DataUtils.roundRating(movie.ratings / 2)
-        view?.findViewById<TextView>(R.id.textViewStorylineContent)?.text = movie.overview
-        context?.let {
+        context?.let { context ->
+            view?.findViewById<TextView>(R.id.textViewStorylineContent)?.text = movie.overview?: context.getString(R.string.overview_missing)
             val backdrop = view?.findViewById<ImageView>(R.id.movie_poster)
             backdrop?.let {
-                Glide.with(it)
+                Glide.with(context)
                         .load(movie.backdrop)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.no_image)

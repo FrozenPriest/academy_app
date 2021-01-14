@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.frozenrpiest.academyapp.data.Movie
-import ru.frozenrpiest.academyapp.data.loadMoviesNetwork
 import ru.frozenrpiest.academyapp.data.network.RetrofitModule
+import ru.frozenrpiest.academyapp.data.network.loadMoviesNetwork
 
 class MoviesListViewModel(
     application: Application
