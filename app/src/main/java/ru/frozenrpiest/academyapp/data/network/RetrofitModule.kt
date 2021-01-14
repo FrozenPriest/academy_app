@@ -30,7 +30,7 @@ object RetrofitModule {
     init {
         System.loadLibrary("keys")
     }
-    private external fun getMoviesApiKey(): String
+    external fun getMoviesApiKey(): String
 
 //
 }

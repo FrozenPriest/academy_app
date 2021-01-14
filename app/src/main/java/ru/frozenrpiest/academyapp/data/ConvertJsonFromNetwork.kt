@@ -2,6 +2,7 @@ package ru.frozenrpiest.academyapp.data
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.frozenrpiest.academyapp.BuildConfig
 import ru.frozenrpiest.academyapp.data.network.GenresItem
 import ru.frozenrpiest.academyapp.data.network.ResponseCrew
 import ru.frozenrpiest.academyapp.data.network.RetrofitModule
@@ -27,8 +28,8 @@ internal suspend fun loadMoviesNetwork(): List<Movie> = withContext(Dispatchers.
                 id = movieDetails.id,
                 title = movieDetails.title,
                 overview = movieDetails.overview ?: "Overview is missing!", //todo resource
-                poster = movieDetails.posterPath ?: "",
-                backdrop = movieDetails.backdropPath ?: "",
+                poster =  BuildConfig.BASE_URL_POSTER + (movieDetails.posterPath ?: ""),
+                backdrop =  BuildConfig.BASE_URL_BACKDROP + (movieDetails.backdropPath ?: ""),
                 ratings = movieDetails.voteAverage,
                 numberOfRatings = movieDetails.voteCount,
                 minimumAge = if(movieDetails.adult) 16 else 13,
@@ -62,7 +63,7 @@ private fun parseActorsNetwork(movieCrewNetwork: ResponseCrew): List<Actor> {
             Actor(
                 id = it.id,
                 name = it.name,
-                picture = it.profilePath?:""
+                picture = BuildConfig.BASE_URL_POSTER + (it.profilePath?:"")
             )
         )
     }
