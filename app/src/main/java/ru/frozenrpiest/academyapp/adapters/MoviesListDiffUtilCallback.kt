@@ -7,7 +7,7 @@ import ru.frozenrpiest.academyapp.data.Movie
 class MoviesListDiffUtilCallback(
     private val oldList: List<Movie>,
     private val newList: List<Movie>
-    ) : DiffUtil.Callback() {
+) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
         return oldList.size

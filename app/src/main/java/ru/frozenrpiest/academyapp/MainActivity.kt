@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.fragmentContainer, MoviesListFragment.newInstance())
                 .commit()
         }
-     }
+    }
 
 
     override fun onBackPressed() {

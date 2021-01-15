@@ -12,14 +12,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.data.Actor
 
-class ItemAdapterActors (private val context: Context, private val items: List<Actor>) :
-                                RecyclerView.Adapter<ItemAdapterActors.ViewHolder>() {
+class ItemAdapterActors(private val context: Context, private val items: List<Actor>) :
+    RecyclerView.Adapter<ItemAdapterActors.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =  LayoutInflater.from(context).inflate(
-                R.layout.view_holder_actor,
-                parent,
-                false
+        val view = LayoutInflater.from(context).inflate(
+            R.layout.view_holder_actor,
+            parent,
+            false
         )
         return ViewHolder(view).apply {
             textViewName = view.findViewById(R.id.textViewName)
@@ -31,21 +31,22 @@ class ItemAdapterActors (private val context: Context, private val items: List<A
         val item = items[position]
         holder.textViewName.text = item.name
         Glide.with(context)
-                .load(item.picture)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.no_image)
-                .error(R.drawable.no_image)
-                .centerCrop()
-                .into(holder.imageViewPhoto)
+            .load(item.picture)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(R.drawable.no_image)
+            .error(R.drawable.no_image)
+            .centerCrop()
+            .into(holder.imageViewPhoto)
     }
+
     override fun getItemCount(): Int {
         return items.size
     }
 
 
-    class ViewHolder(view: View) :RecyclerView.ViewHolder(view) {
-        lateinit var textViewName:TextView
-        lateinit var imageViewPhoto:ImageView
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        lateinit var textViewName: TextView
+        lateinit var imageViewPhoto: ImageView
 
 
     }

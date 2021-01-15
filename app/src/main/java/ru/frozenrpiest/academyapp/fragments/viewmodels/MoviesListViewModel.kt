@@ -7,12 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.frozenrpiest.academyapp.data.Movie
-import ru.frozenrpiest.academyapp.data.network.RetrofitModule
 import ru.frozenrpiest.academyapp.data.network.loadMoviesNetwork
 
 class MoviesListViewModel(
     application: Application
-): AndroidViewModel(application) {
+) : AndroidViewModel(application) {
     private val _mutableMovieList = MutableLiveData<List<Movie>>(emptyList())
     private val _mutableLoadingState = MutableLiveData(false)
 
@@ -24,7 +23,6 @@ class MoviesListViewModel(
     }
 
     fun reloadMovies() {
-        print("KEY: ${RetrofitModule.getMoviesApiKey()}")
         viewModelScope.launch {
             _mutableLoadingState.value = true
 

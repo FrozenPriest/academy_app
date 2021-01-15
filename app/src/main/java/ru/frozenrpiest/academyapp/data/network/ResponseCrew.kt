@@ -15,6 +15,7 @@ data class ResponseCrew(
 	@SerialName("crew")
 	val crew: List<CrewItem>
 )
+
 @Serializable
 data class CastItem(
 
@@ -54,6 +55,7 @@ data class CastItem(
 	@SerialName("order")
 	val order: Int
 )
+
 @Serializable
 data class CrewItem(
 

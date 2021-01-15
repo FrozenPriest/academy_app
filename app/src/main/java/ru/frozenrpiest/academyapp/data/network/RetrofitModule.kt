@@ -15,14 +15,14 @@ object RetrofitModule {
     }
 
     val okHttpClient = OkHttpClient().newBuilder()
-            .build()
+        .build()
 
     @Suppress("EXPERIMENTAL_API_USAGE")
     private val retrofit = Retrofit.Builder()
-            .client(okHttpClient)
-            .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-            .build()
+        .client(okHttpClient)
+        .baseUrl(BuildConfig.BASE_URL)
+        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+        .build()
 
     val moviesApi: MoviesApi = retrofit.create()
 
@@ -30,6 +30,7 @@ object RetrofitModule {
     init {
         System.loadLibrary("keys")
     }
+
     external fun getMoviesApiKey(): String
 
 //

@@ -14,22 +14,18 @@ internal suspend fun loadMoviesNetwork(): List<Movie> = withContext(Dispatchers.
         language = Locale.getDefault().toLanguageTag(),
         page = 1
     )
-    println("Popular movies id loaded")
 
     val movies = mutableListOf<Movie>()
 
-    moviesId.results.forEach{
-        println("Movie: id = ${it.id}")
+    moviesId.results.forEach {
         val movieDetails = RetrofitModule.moviesApi.getMovieInfo(
             it.id,
             language = Locale.getDefault().toLanguageTag()
         )
-        println("MovieDetails loaded ")
         val movieCrewNetwork = RetrofitModule.moviesApi.getMovieCrew(
             it.id,
             language = Locale.getDefault().toLanguageTag()
         )
-        println("Crew loaded")
         val cast = parseActorsNetwork(movieCrewNetwork)
         val genres = parseGenresNetwork(movieDetails.genres)
         movies.add(
@@ -37,12 +33,12 @@ internal suspend fun loadMoviesNetwork(): List<Movie> = withContext(Dispatchers.
                 id = movieDetails.id,
                 title = movieDetails.title,
                 overview = movieDetails.overview,
-                poster =  BuildConfig.BASE_URL_POSTER + (movieDetails.posterPath ?: ""),
-                backdrop =  BuildConfig.BASE_URL_BACKDROP + (movieDetails.backdropPath ?: ""),
+                poster = BuildConfig.BASE_URL_POSTER + (movieDetails.posterPath ?: ""),
+                backdrop = BuildConfig.BASE_URL_BACKDROP + (movieDetails.backdropPath ?: ""),
                 ratings = movieDetails.voteAverage,
                 numberOfRatings = movieDetails.voteCount,
-                minimumAge = if(movieDetails.adult) 16 else 13,
-                runtime = movieDetails.runtime?:0,
+                minimumAge = if (movieDetails.adult) 16 else 13,
+                runtime = movieDetails.runtime ?: 0,
                 genres = genres,
                 actors = cast
             )
@@ -72,7 +68,7 @@ private fun parseActorsNetwork(movieCrewNetwork: ResponseCrew): List<Actor> {
             Actor(
                 id = it.id,
                 name = it.name,
-                picture = BuildConfig.BASE_URL_POSTER + (it.profilePath?:"")
+                picture = BuildConfig.BASE_URL_POSTER + (it.profilePath ?: "")
             )
         )
     }

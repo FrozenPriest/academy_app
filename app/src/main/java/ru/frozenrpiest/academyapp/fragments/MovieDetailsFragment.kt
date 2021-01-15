@@ -54,7 +54,7 @@ class MovieDetailsFragment : Fragment() {
             viewModel.reloadMovie(it.getParcelable(ARG_MOVIE)!!)
         }
 
-        view.findViewById<Button>(R.id.buttonBack).setOnClickListener{onClickBack()}
+        view.findViewById<Button>(R.id.buttonBack).setOnClickListener { onClickBack() }
     }
 
     private fun onClickBack() {
@@ -70,29 +70,34 @@ class MovieDetailsFragment : Fragment() {
     }
 
 
-
     private fun setupView(movie: Movie) {
         view?.findViewById<TextView>(R.id.movie_name)?.text = movie.title
         view?.findViewById<TextView>(R.id.textViewAgeRestriction)?.text =
-        context?.resources?.getString(R.string.age_restriction)?.let {
-            String.format(it, movie.minimumAge)
-        }
+            context?.resources?.getString(R.string.age_restriction)?.let {
+                String.format(it, movie.minimumAge)
+            }
         view?.findViewById<TextView>(R.id.textViewGenres)?.text =
             DataUtils.formatGenres(movie.genres)
         view?.findViewById<TextView>(R.id.textViewReviews)?.text =
-            context?.resources?.getQuantityString(R.plurals.count_reviews, movie.numberOfRatings, movie.numberOfRatings)
-        view?.findViewById<RatingBar>(R.id.ratingBar)?.rating = DataUtils.roundRating(movie.ratings / 2)
+            context?.resources?.getQuantityString(
+                R.plurals.count_reviews,
+                movie.numberOfRatings,
+                movie.numberOfRatings
+            )
+        view?.findViewById<RatingBar>(R.id.ratingBar)?.rating =
+            DataUtils.roundRating(movie.ratings / 2)
         context?.let { context ->
-            view?.findViewById<TextView>(R.id.textViewStorylineContent)?.text = movie.overview?: context.getString(R.string.overview_missing)
+            view?.findViewById<TextView>(R.id.textViewStorylineContent)?.text =
+                movie.overview ?: context.getString(R.string.overview_missing)
             val backdrop = view?.findViewById<ImageView>(R.id.movie_poster)
             backdrop?.let {
                 Glide.with(context)
-                        .load(movie.backdrop)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.no_image)
-                        .error(R.drawable.no_image)
-                        .centerCrop()
-                        .into(it)
+                    .load(movie.backdrop)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.no_image)
+                    .error(R.drawable.no_image)
+                    .centerCrop()
+                    .into(it)
             }
         }
 
@@ -101,7 +106,7 @@ class MovieDetailsFragment : Fragment() {
 
 
     private fun setupCast(movie: Movie) {
-        if(movie.actors.isEmpty()) {
+        if (movie.actors.isEmpty()) {
             view?.findViewById<TextView>(R.id.textViewCast)?.visibility = View.GONE
             view?.findViewById<RecyclerView>(R.id.recyclerViewCast)?.visibility = View.GONE
         } else {

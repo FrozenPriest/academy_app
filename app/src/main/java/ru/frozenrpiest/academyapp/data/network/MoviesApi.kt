@@ -15,20 +15,20 @@ interface MoviesApi {
         @Query("api_key") apiKey: String = RetrofitModule.getMoviesApiKey(),
         @Query("language") language: String,
         @Query("page") page: Int,
-    ):ResponseMoviesId
+    ): ResponseMoviesId
 
     @GET("movie/{id}?")
     suspend fun getMovieInfo(
         @Path("id") movieId: Int,
         @Query("api_key") api_key: String = RetrofitModule.getMoviesApiKey(),
         @Query("language") language: String
-    ):ResponseMovieDetails
+    ): ResponseMovieDetails
 
     @GET("movie/{id}/credits?")
     suspend fun getMovieCrew(
         @Path("id") movieId: Int,
         @Query("api_key") api_key: String = RetrofitModule.getMoviesApiKey(),
         @Query("language") language: String
-    ):ResponseCrew
+    ): ResponseCrew
 
 }
