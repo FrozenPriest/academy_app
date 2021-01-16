@@ -1,17 +1,14 @@
 package ru.frozenrpiest.academyapp.fragments.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.frozenrpiest.academyapp.data.Movie
 import ru.frozenrpiest.academyapp.data.network.loadMoviesNetwork
 
-class MoviesListViewModel(
-    application: Application
-) : AndroidViewModel(application) {
+class MoviesListViewModel() : ViewModel() {
     private val _mutableMovieList = MutableLiveData<List<Movie>>(emptyList())
     private val _mutableLoadingState = MutableLiveData(false)
 

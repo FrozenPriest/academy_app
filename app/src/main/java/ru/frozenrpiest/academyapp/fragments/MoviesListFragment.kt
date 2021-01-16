@@ -22,7 +22,7 @@ class MoviesListFragment : Fragment() {
     private lateinit var repository: Repository
 
     private val viewModel by viewModels<MoviesListViewModel> {
-        MoviesListViewModelFactory(requireActivity().application)
+        MoviesListViewModelFactory()
     }
 
     private lateinit var recyclerView: RecyclerView
