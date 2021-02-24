@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class GenreEntity(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "genre_id")
-    val id: Long,
+    val id: Int,
     @ColumnInfo(name = "name")
     val name: String
 )

@@ -9,13 +9,21 @@ data class MovieWithActorsGenres(
     @Relation(
         parentColumn = "movie_id",
         entityColumn = "genre_id",
-        associateBy = Junction(GenresMovieCrossRef::class)
+        associateBy = Junction(
+            GenresMovieCrossRef::class,
+            parentColumn = "movieId",
+            entityColumn = "genreId"
+        )
     )
     val genres: List<GenreEntity>,
     @Relation(
         parentColumn = "movie_id",
         entityColumn = "cast_id",
-        associateBy = Junction(CastMovieCrossRef::class)
+        associateBy = Junction(
+            CastMovieCrossRef::class,
+            parentColumn = "movieId",
+            entityColumn = "castId"
+        )
     )
     val actors: List<CastEntity>
 )

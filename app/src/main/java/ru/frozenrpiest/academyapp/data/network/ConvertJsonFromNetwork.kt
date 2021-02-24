@@ -2,12 +2,48 @@ package ru.frozenrpiest.academyapp.data.network
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.frozenrpiest.academyapp.App
 import ru.frozenrpiest.academyapp.BuildConfig
 import ru.frozenrpiest.academyapp.data.Actor
 import ru.frozenrpiest.academyapp.data.Genre
 import ru.frozenrpiest.academyapp.data.Movie
+import ru.frozenrpiest.academyapp.data.local.entities.CastEntity
+import ru.frozenrpiest.academyapp.data.local.entities.GenreEntity
+import ru.frozenrpiest.academyapp.data.local.entities.MovieEntity
+import ru.frozenrpiest.academyapp.data.local.entities.MovieWithActorsGenres
 import java.util.*
 
+internal suspend fun loadMoviesLocal(): List<Movie> = withContext(Dispatchers.IO) {
+    val moviesFromDb = App.database.moviesDao().getBestMovies()
+
+    moviesFromDb.asSequence().map {
+        Movie(
+            id = it.movie.id.toInt(),
+            title = it.movie.title,
+            overview = it.movie.overview,
+            poster = it.movie.poster,
+            backdrop = it.movie.backdrop,
+            ratings = it.movie.ratings,
+            numberOfRatings = it.movie.numberOfRatings,
+            minimumAge = it.movie.minimumAge,
+            runtime = it.movie.runtime,
+            genres = it.genres.map { genreEntity ->
+                Genre(
+                    id = genreEntity.id.toInt(),
+                    name = genreEntity.name
+                )
+            }.toList(),
+            actors = it.actors.map { castEntity ->
+                Actor(
+                    id = castEntity.id.toInt(),
+                    name = castEntity.name,
+                    picture = castEntity.picture
+                )
+            }.toList(),
+        )
+
+    }.toList()
+}
 
 internal suspend fun loadMoviesNetwork(): List<Movie> = withContext(Dispatchers.IO) {
     val moviesId = RetrofitModule.moviesApi.getPopularMoviesId(
@@ -45,6 +81,34 @@ internal suspend fun loadMoviesNetwork(): List<Movie> = withContext(Dispatchers.
         )
     }
     movies
+}
+
+internal suspend fun loadIntoLocalDatabase(movies: List<Movie>) = withContext(Dispatchers.IO) {
+
+    val moviesConverted = movies.mapIndexed { pos, it -> MovieWithActorsGenres(
+        movie = MovieEntity(
+            id = it.id,
+            title = it.title,
+            overview = it.overview,
+            poster = it.poster,
+            backdrop = it.backdrop,
+            ratings = it.ratings,
+            numberOfRatings = it.numberOfRatings,
+            minimumAge = it.minimumAge,
+            runtime = it.runtime,
+            position = pos
+        ),
+        genres = it.genres.map {genre -> GenreEntity(
+            id = genre.id,
+            name = genre.name
+        ) },
+        actors = it.actors.map { actor -> CastEntity(
+            id = actor.id,
+            name = actor.name,
+            picture = actor.picture
+        )}
+    ) }
+    App.database.moviesDao().insertAll(moviesConverted)
 }
 
 private fun parseGenresNetwork(genresNetwork: List<GenresItem>): List<Genre> {

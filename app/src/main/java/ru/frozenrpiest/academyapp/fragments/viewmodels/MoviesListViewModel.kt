@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.frozenrpiest.academyapp.data.Movie
+import ru.frozenrpiest.academyapp.data.network.loadIntoLocalDatabase
+import ru.frozenrpiest.academyapp.data.network.loadMoviesLocal
 import ru.frozenrpiest.academyapp.data.network.loadMoviesNetwork
 
 class MoviesListViewModel() : ViewModel() {
@@ -16,16 +18,26 @@ class MoviesListViewModel() : ViewModel() {
     val loadingState: LiveData<Boolean> get() = _mutableLoadingState
 
     init {
+        reloadLocal()
         reloadMovies()
+    }
+
+    private fun reloadLocal() {
+        viewModelScope.launch {
+            _mutableMovieList.value = loadMoviesLocal()
+        }
     }
 
     fun reloadMovies() {
         viewModelScope.launch {
             _mutableLoadingState.value = true
 
-            _mutableMovieList.value = loadMoviesNetwork()
+            val networkResult = loadMoviesNetwork()
+            _mutableMovieList.value = networkResult
 
             _mutableLoadingState.value = false
+
+            loadIntoLocalDatabase(networkResult)
 
         }
     }

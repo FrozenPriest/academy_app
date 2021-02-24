@@ -9,16 +9,18 @@ import androidx.room.ForeignKey
         ForeignKey(
             entity = MovieEntity::class,
             parentColumns = ["movie_id"],
-            childColumns = ["movieId"]
+            childColumns = ["movieId"],
+            onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = CastEntity::class,
             parentColumns = ["cast_id"],
-            childColumns = ["castId"]
+            childColumns = ["castId"],
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )
 data class CastMovieCrossRef(
-    val movieId: Long,
-    val castId: Long
+    val movieId: Int,
+    val castId: Int
 )

@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class MovieEntity(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "movie_id")
-    val id: Long,
+    val id: Int,
     @ColumnInfo(name = "title")
     val title: String,
     @ColumnInfo(name = "overview")
@@ -24,5 +24,7 @@ data class MovieEntity(
     @ColumnInfo(name = "age_restriction")
     val minimumAge: Int,
     @ColumnInfo(name = "runtime")
-    val runtime: Int
+    val runtime: Int,
+    @ColumnInfo(name = "position")
+    val position: Int
 )
