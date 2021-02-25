@@ -15,6 +15,7 @@
     <string name="actor_image">Actor image</string>
     <string name="age_restriction">%1$d+</string>
     <string name="overview_missing">Overview is missing!</string>
+    <string name="error_loading">Error loading movies</string>
     <plurals name="count_reviews">
         <item quantity="one">%1$d review</item>
         <item quantity="other">%1$d reviews</item>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,6 +15,7 @@ import ru.frozenrpiest.academyapp.adapters.ItemAdapterMovie
 import ru.frozenrpiest.academyapp.adapters.OnMovieClicked
 import ru.frozenrpiest.academyapp.data.Movie
 import ru.frozenrpiest.academyapp.data.Repository
+import ru.frozenrpiest.academyapp.fragments.viewmodels.LoadingState
 import ru.frozenrpiest.academyapp.fragments.viewmodels.MoviesListViewModel
 import ru.frozenrpiest.academyapp.fragments.viewmodels.MoviesListViewModelFactory
 
@@ -57,8 +59,13 @@ class MoviesListFragment : Fragment() {
         loadingBar.setOnRefreshListener { refreshData() }
     }
 
-    private fun setLoadingState(loading: Boolean) {
-        loadingBar.isRefreshing = loading
+    private fun setLoadingState(loading: LoadingState) = when(loading) {
+        LoadingState.SUCCESS -> loadingBar.isRefreshing = false
+        LoadingState.LOADING -> loadingBar.isRefreshing = true
+        LoadingState.ERROR -> {
+            loadingBar.isRefreshing = false
+            Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun refreshData() {

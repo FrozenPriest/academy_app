@@ -12,10 +12,10 @@ import ru.frozenrpiest.academyapp.data.network.loadMoviesNetwork
 
 class MoviesListViewModel() : ViewModel() {
     private val _mutableMovieList = MutableLiveData<List<Movie>>(emptyList())
-    private val _mutableLoadingState = MutableLiveData(false)
+    private val _mutableLoadingState = MutableLiveData(LoadingState.LOADING)
 
     val moviesList: LiveData<List<Movie>> get() = _mutableMovieList
-    val loadingState: LiveData<Boolean> get() = _mutableLoadingState
+    val loadingState: LiveData<LoadingState> get() = _mutableLoadingState
 
     init {
         reloadLocal()
@@ -30,14 +30,19 @@ class MoviesListViewModel() : ViewModel() {
 
     fun reloadMovies() {
         viewModelScope.launch {
-            _mutableLoadingState.value = true
+            _mutableLoadingState.value = LoadingState.LOADING
 
-            val networkResult = loadMoviesNetwork()
-            _mutableMovieList.value = networkResult
+            try {
+                val networkResult = loadMoviesNetwork()
+                _mutableMovieList.value = networkResult
+                _mutableLoadingState.value = LoadingState.SUCCESS
 
-            _mutableLoadingState.value = false
+                loadIntoLocalDatabase(networkResult)
+            } catch (e: Exception) {
+                _mutableLoadingState.value = LoadingState.ERROR
+            }
 
-            loadIntoLocalDatabase(networkResult)
+
 
         }
     }
