@@ -6,7 +6,7 @@ import ru.frozenrpiest.academyapp.data.local.entities.*
 @Dao
 interface MoviesDao {
 
-   // @Transaction
+    @Transaction
     @Query("select * from movies_table order by position ASC limit 30")
     fun getBestMovies(): List<MovieWithActorsGenres>
 
