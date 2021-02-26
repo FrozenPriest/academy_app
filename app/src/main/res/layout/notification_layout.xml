@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    style="@style/TextAppearance.Compat.Notification">
+
+    <TextView
+        style="@style/TextAppearance.Compat.Notification.Title"
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/first_names" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewOverview"
+            style="@style/TextAppearance.Compat.Notification.Info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingEnd="8dp"
+            app:autoSizeTextType="uniform"
+            tools:text="@tools:sample/first_names" />
+        <ImageView
+            android:id="@+id/imageViewPosterNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:scaleType="fitStart"
+            tools:srcCompat="@tools:sample/backgrounds/scenic"
+            android:layout_weight="3"/>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/buttonAddToCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/add_to_calendar"
+        android:layout_gravity="end"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        />
+
+</LinearLayout>

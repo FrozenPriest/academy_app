@@ -16,6 +16,10 @@
     <string name="age_restriction">%1$d+</string>
     <string name="overview_missing">Overview is missing!</string>
     <string name="error_loading">Error loading movies</string>
+    <string name="top_movie">Top movie for you: %1$s</string>
+    <string name="channel_top_rated">Top rated</string>
+    <string name="channel_top_rated_description">Recommends top rated movie</string>
+    <string name="add_to_calendar">Add to calendar</string>
     <plurals name="count_reviews">
         <item quantity="one">%1$d review</item>
         <item quantity="other">%1$d reviews</item>

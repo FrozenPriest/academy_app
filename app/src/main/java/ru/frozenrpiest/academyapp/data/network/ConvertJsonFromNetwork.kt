@@ -45,6 +45,15 @@ internal suspend fun loadMoviesLocal(): List<Movie> = withContext(Dispatchers.IO
     }.toList()
 }
 
+internal suspend fun loadTopRatedMovie(): Movie = withContext(Dispatchers.IO) {
+    val movieIds = RetrofitModule.moviesApi.getTopRatedMoviesId(
+        language = Locale.getDefault().toLanguageTag(),
+        page = 1
+    )
+
+    getMovieById(movieIds.results[0].id)
+}
+
 internal suspend fun loadMoviesNetwork(): List<Movie> = withContext(Dispatchers.IO) {
     val moviesId = RetrofitModule.moviesApi.getPopularMoviesId(
         language = Locale.getDefault().toLanguageTag(),
@@ -54,30 +63,8 @@ internal suspend fun loadMoviesNetwork(): List<Movie> = withContext(Dispatchers.
     val movies = mutableListOf<Movie>()
 
     moviesId.results.forEach {
-        val movieDetails = RetrofitModule.moviesApi.getMovieInfo(
-            it.id,
-            language = Locale.getDefault().toLanguageTag()
-        )
-        val movieCrewNetwork = RetrofitModule.moviesApi.getMovieCrew(
-            it.id,
-            language = Locale.getDefault().toLanguageTag()
-        )
-        val cast = parseActorsNetwork(movieCrewNetwork)
-        val genres = parseGenresNetwork(movieDetails.genres)
         movies.add(
-            Movie(
-                id = movieDetails.id,
-                title = movieDetails.title,
-                overview = movieDetails.overview,
-                poster = BuildConfig.BASE_URL_POSTER + (movieDetails.posterPath ?: ""),
-                backdrop = BuildConfig.BASE_URL_BACKDROP + (movieDetails.backdropPath ?: ""),
-                ratings = movieDetails.voteAverage,
-                numberOfRatings = movieDetails.voteCount,
-                minimumAge = if (movieDetails.adult) 16 else 13,
-                runtime = movieDetails.runtime ?: 0,
-                genres = genres,
-                actors = cast
-            )
+            getMovieById(it.id)
         )
     }
     movies
