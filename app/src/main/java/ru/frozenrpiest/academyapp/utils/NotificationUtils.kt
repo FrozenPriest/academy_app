@@ -1,10 +1,11 @@
-package ru.frozenrpiest.academyapp
+package ru.frozenrpiest.academyapp.utils
 
 import android.content.Context
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationManagerCompat
+import ru.frozenrpiest.academyapp.R
 
-object NotificationUtil {
+object NotificationUtils {
     fun createNotificationChannel(context: Context) {
         val notificationChannel = NotificationChannelCompat
             .Builder(RECOMMEND_TOP, NotificationManagerCompat.IMPORTANCE_HIGH)

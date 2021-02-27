@@ -1,4 +1,4 @@
-package ru.frozenrpiest.academyapp
+package ru.frozenrpiest.academyapp.utils
 
 import ru.frozenrpiest.academyapp.data.Genre
 import kotlin.math.roundToInt
