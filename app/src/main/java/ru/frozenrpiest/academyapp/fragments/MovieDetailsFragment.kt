@@ -1,5 +1,6 @@
 package ru.frozenrpiest.academyapp.fragments
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -7,12 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.adapters.ItemAdapterActors
 import ru.frozenrpiest.academyapp.adapters.LinearLayoutPagerManager
 import ru.frozenrpiest.academyapp.data.Movie
+import ru.frozenrpiest.academyapp.data.MovieSample
 import ru.frozenrpiest.academyapp.fragments.viewmodels.MovieViewModel
 import ru.frozenrpiest.academyapp.fragments.viewmodels.MovieViewModelFactory
 import ru.frozenrpiest.academyapp.utils.DataUtils
@@ -29,14 +36,27 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            viewModel.reloadMovie(it.getParcelable(ARG_MOVIE)!!)
+            viewModel.reloadMovie(it.getParcelable(ARG_MOVIE) ?: MovieSample.defaultMovie)
         }
+
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+
+        postponeEnterTransition();
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.movieData.observe(this.viewLifecycleOwner, this::setupView)
+
+        view.findViewById<ScrollView>(R.id.movieDetailsScrollView).transitionName =
+            context?.resources?.getString(
+                R.string.transition_list_details,
+                viewModel.movieData.value?.title
+            )
     }
 
     private fun onClickBack() {
@@ -73,12 +93,37 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
                     .placeholder(R.drawable.no_image)
                     .error(R.drawable.no_image)
                     .centerCrop()
+                    .addListener(glideListener)
                     .into(it)
             }
         }
 
         setupCast(movie)
         setupActionListeners(movie)
+    }
+
+    private val glideListener = object : RequestListener<Drawable> {
+        override fun onLoadFailed(
+            e: GlideException?,
+            model: Any?,
+            target: Target<Drawable>?,
+            isFirstResource: Boolean
+        ): Boolean {
+            startPostponedEnterTransition()
+            return false
+        }
+
+        override fun onResourceReady(
+            resource: Drawable?,
+            model: Any?,
+            target: Target<Drawable>?,
+            dataSource: DataSource?,
+            isFirstResource: Boolean
+        ): Boolean {
+            startPostponedEnterTransition()
+            return false
+        }
+
     }
 
     private fun setupActionListeners(movie: Movie) {

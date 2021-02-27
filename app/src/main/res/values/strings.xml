@@ -21,6 +21,7 @@
     <string name="channel_top_rated_description">Recommends top rated movie</string>
     <string name="watch_later">Watch later</string>
     <string name="watch_later_title">Watch later: %1$s</string>
+    <string name="transition_list_details">transitionListDetails%1$s</string>
     <plurals name="count_reviews">
         <item quantity="one">%1$d review</item>
         <item quantity="other">%1$d reviews</item>

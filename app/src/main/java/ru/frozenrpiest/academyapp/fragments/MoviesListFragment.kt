@@ -3,11 +3,14 @@ package ru.frozenrpiest.academyapp.fragments
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.transition.TransitionInflater
+import com.google.android.material.transition.Hold
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.adapters.ItemAdapterMovie
 import ru.frozenrpiest.academyapp.adapters.OnMovieClicked
@@ -30,6 +33,12 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         repository = Repository()
+
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+
+        exitTransition = Hold()
+        reenterTransition = Hold()
+
     }
 
 
@@ -48,6 +57,9 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
             setLoadingState(it)
         })
         loadingBar.setOnRefreshListener { refreshData() }
+
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     private fun setLoadingState(loading: LoadingState) = when(loading) {
@@ -71,15 +83,16 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
     }
 
     private val clickListener = object : OnMovieClicked {
-        override fun onClick(movie: Movie) {
-            openMovieDetails(movie)
+        override fun onClick(movie: Movie, sharedView: View) {
+            openMovieDetails(movie, sharedView)
         }
     }
 
-    private fun openMovieDetails(movie: Movie) {
+    private fun openMovieDetails(movie: Movie, sharedName: View) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
-            add(R.id.fragmentContainer, MovieDetailsFragment.newInstance(movie))
+            addSharedElement(sharedName, sharedName.transitionName)
             addToBackStack(null)
+            replace(R.id.fragmentContainer, MovieDetailsFragment.newInstance(movie))
         }.commit()
     }
 

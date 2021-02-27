@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/movie_details_background">
+    android:background="@color/movie_details_background"
+    android:id="@+id/movieDetailsScrollView"
+    android:transitionGroup="true"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -44,7 +47,7 @@
         <TextView
             android:id="@+id/movie_name"
             style="@style/header"
-
+            android:transitionName="@string/transition_list_details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
