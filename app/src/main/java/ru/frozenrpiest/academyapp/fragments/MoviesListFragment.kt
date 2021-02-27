@@ -29,7 +29,6 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
     private lateinit var loadingBar: SwipeRefreshLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
         repository = Repository()
     }
 
