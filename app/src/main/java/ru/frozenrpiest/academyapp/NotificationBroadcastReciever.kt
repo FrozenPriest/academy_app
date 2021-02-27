@@ -5,10 +5,10 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.provider.CalendarContract
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import ru.frozenrpiest.academyapp.data.Movie
+import ru.frozenrpiest.academyapp.utils.DataUtils
 
 
 class NotificationBroadcastReciever : BroadcastReceiver() {
@@ -24,7 +24,7 @@ class NotificationBroadcastReciever : BroadcastReceiver() {
                 ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR)
 
             if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-                addToCalendar(context, movie)
+                DataUtils.sendToCalendar(context, movie)
             }
         }
 
@@ -33,17 +33,4 @@ class NotificationBroadcastReciever : BroadcastReceiver() {
 
     }
 
-    private fun addToCalendar(context: Context, movie: Movie) {
-        val intent = Intent(Intent.ACTION_INSERT)
-        intent.data = CalendarContract.Events.CONTENT_URI
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-        intent.putExtra(
-            CalendarContract.Events.TITLE,
-            context.resources.getString(R.string.watch_later_title, movie.title)
-        )
-        intent.putExtra(CalendarContract.Events.DESCRIPTION, movie.overview)
-
-        context.startActivity(intent)
-    }
 }

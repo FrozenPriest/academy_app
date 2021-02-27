@@ -1,31 +1,26 @@
 package ru.frozenrpiest.academyapp.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import ru.frozenrpiest.academyapp.utils.DataUtils
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.adapters.ItemAdapterActors
 import ru.frozenrpiest.academyapp.adapters.LinearLayoutPagerManager
 import ru.frozenrpiest.academyapp.data.Movie
 import ru.frozenrpiest.academyapp.fragments.viewmodels.MovieViewModel
 import ru.frozenrpiest.academyapp.fragments.viewmodels.MovieViewModelFactory
+import ru.frozenrpiest.academyapp.utils.DataUtils
 
 
 private const val ARG_MOVIE = "movie"
 
-class MovieDetailsFragment : Fragment() {
+class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     private val viewModel by viewModels<MovieViewModel> {
         MovieViewModelFactory()
@@ -33,28 +28,15 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
         arguments?.let {
             viewModel.reloadMovie(it.getParcelable(ARG_MOVIE)!!)
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_movie_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.movieData.observe(this.viewLifecycleOwner, this::setupView)
-        savedInstanceState?.let {
-            viewModel.reloadMovie(it.getParcelable(ARG_MOVIE)!!)
-        }
-
-        view.findViewById<Button>(R.id.buttonBack).setOnClickListener { onClickBack() }
     }
 
     private fun onClickBack() {
@@ -63,12 +45,6 @@ class MovieDetailsFragment : Fragment() {
             supportFragmentManager.popBackStack()
         }
     }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable(ARG_MOVIE, viewModel.movieData.value)
-    }
-
 
     private fun setupView(movie: Movie) {
         view?.findViewById<TextView>(R.id.movie_name)?.text = movie.title
@@ -102,6 +78,14 @@ class MovieDetailsFragment : Fragment() {
         }
 
         setupCast(movie)
+        setupActionListeners(movie)
+    }
+
+    private fun setupActionListeners(movie: Movie) {
+        view?.findViewById<ImageButton>(R.id.imageButtonWatchLater)?.setOnClickListener {
+            context?.let { context -> DataUtils.sendToCalendar(context, movie) }
+        }
+        view?.findViewById<Button>(R.id.buttonBack)?.setOnClickListener { onClickBack() }
     }
 
 
