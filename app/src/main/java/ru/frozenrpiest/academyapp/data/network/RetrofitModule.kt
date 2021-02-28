@@ -36,6 +36,4 @@ object RetrofitModule {
     }
 
     external fun getMoviesApiKey(): String
-
-//
 }

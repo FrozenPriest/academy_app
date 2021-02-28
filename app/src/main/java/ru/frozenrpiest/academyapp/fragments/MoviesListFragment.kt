@@ -59,7 +59,7 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
         view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
-    private fun setLoadingState(loading: LoadingState) = when(loading) {
+    private fun setLoadingState(loading: LoadingState) = when (loading) {
         LoadingState.SUCCESS -> loadingBar.isRefreshing = false
         LoadingState.LOADING -> loadingBar.isRefreshing = true
         LoadingState.ERROR -> {

@@ -10,7 +10,7 @@ import ru.frozenrpiest.academyapp.data.local.entities.*
     version = 1,
     exportSchema = false
 )
-abstract class MoviesRoomDatabase: RoomDatabase() {
+abstract class MoviesRoomDatabase : RoomDatabase() {
     abstract fun moviesDao(): MoviesDao
 
 

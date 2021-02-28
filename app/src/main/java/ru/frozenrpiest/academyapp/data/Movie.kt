@@ -19,17 +19,17 @@ data class Movie(
 ) : Parcelable
 
 object MovieSample {
-        val defaultMovie = Movie(
-                id = -1,
-                title = "Title",
-                overview = "Overview",
-                poster = "",
-                backdrop = "",
-                ratings = 5f,
-                numberOfRatings = 345,
-                minimumAge = 13,
-                runtime = 111,
-                genres = emptyList(),
-                actors = emptyList()
-        )
+    val defaultMovie = Movie(
+            id = -1,
+            title = "Title",
+            overview = "Overview",
+            poster = "",
+            backdrop = "",
+            ratings = 5f,
+            numberOfRatings = 345,
+            minimumAge = 13,
+            runtime = 111,
+            genres = emptyList(),
+            actors = emptyList()
+    )
 }

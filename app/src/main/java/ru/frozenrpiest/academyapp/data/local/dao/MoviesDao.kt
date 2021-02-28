@@ -46,8 +46,10 @@ interface MoviesDao {
         insertAllMovieGenre(movieGenreList)
 
     }
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAllMovieGenre(toList: List<GenresMovieCrossRef>)
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAllMovieCast(toList: List<CastMovieCrossRef>)
 

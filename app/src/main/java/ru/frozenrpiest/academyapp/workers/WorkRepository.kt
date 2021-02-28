@@ -12,7 +12,8 @@ class WorkRepository {
         .setRequiresCharging(true)
         .build()
 
-    val constrainedRequest = PeriodicWorkRequest.Builder(RefreshWorker::class.java, 8, TimeUnit.HOURS)
-        .setConstraints(constraints)
-        .build()
+    val constrainedRequest =
+        PeriodicWorkRequest.Builder(RefreshWorker::class.java, 8, TimeUnit.HOURS)
+            .setConstraints(constraints)
+            .build()
 }

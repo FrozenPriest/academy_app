@@ -43,7 +43,6 @@ class MoviesListViewModel() : ViewModel() {
             }
 
 
-
         }
     }
 

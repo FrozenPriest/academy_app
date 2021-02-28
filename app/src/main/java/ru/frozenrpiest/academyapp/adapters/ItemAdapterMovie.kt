@@ -76,7 +76,8 @@ class ItemAdapterMovie(
         holder.itemView.setOnClickListener {
             clickListener.onClick(items[position], holder.layoutView)
         }
-        holder.layoutView.transitionName = context.resources.getString(R.string.transition_list_details, item.title)
+        holder.layoutView.transitionName =
+            context.resources.getString(R.string.transition_list_details, item.title)
     }
 
     override fun getItemCount(): Int {

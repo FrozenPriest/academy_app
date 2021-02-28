@@ -19,7 +19,6 @@ class NotificationBroadcastReciever : BroadcastReceiver() {
         if (!intent.hasExtra("movie")) return
         val movie = intent.getParcelableExtra<Movie>("movie")
         movie?.let {
-
             val permissionStatus =
                 ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR)
 

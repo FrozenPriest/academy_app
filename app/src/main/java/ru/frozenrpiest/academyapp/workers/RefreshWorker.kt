@@ -20,7 +20,7 @@ class RefreshWorker(
             loadIntoLocalDatabase(networkResult)
 
             Result.success()
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             Result.failure()
         }
     }

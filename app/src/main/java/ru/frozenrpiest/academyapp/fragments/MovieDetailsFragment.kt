@@ -1,10 +1,10 @@
 package ru.frozenrpiest.academyapp.fragments
 
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,11 +40,6 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
             viewModel.reloadMovie(it.getParcelable(ARG_MOVIE) ?: MovieSample.defaultMovie)
         }
 
-        sharedElementEnterTransition =
-            MaterialContainerTransform().apply {
-                drawingViewId = R.id.fragmentContainer
-                scrimColor = Color.TRANSPARENT
-            }
 
 
 
@@ -61,6 +56,12 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
                 R.string.transition_list_details,
                 viewModel.movieData.value?.title
             )
+        sharedElementEnterTransition =
+            MaterialContainerTransform().apply {
+                drawingViewId = R.id.fragmentContainer
+                scrimColor = ContextCompat.getColor(view.context, R.color.movie_details_background)
+            }
+
     }
 
     private fun onClickBack() {
@@ -96,7 +97,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.no_image)
                     .error(R.drawable.no_image)
-                    .centerCrop()
+                    .optionalCenterCrop()
                     .addListener(glideListener)
                     .into(it)
             }

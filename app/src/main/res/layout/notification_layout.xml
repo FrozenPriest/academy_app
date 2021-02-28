@@ -2,17 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/TextAppearance.Compat.Notification"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    style="@style/TextAppearance.Compat.Notification">
+    android:orientation="vertical">
 
     <TextView
-        style="@style/TextAppearance.Compat.Notification.Title"
         android:id="@+id/textViewTitle"
+        style="@style/TextAppearance.Compat.Notification.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="@tools:sample/first_names" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,30 +25,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingEnd="8dp"
+            android:layout_marginEnd="8dp"
             app:autoSizeTextType="uniform"
             tools:text="@tools:sample/first_names" />
+
         <ImageView
             android:id="@+id/imageViewPosterNotification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:adjustViewBounds="true"
             android:cropToPadding="false"
             android:scaleType="fitStart"
             tools:srcCompat="@tools:sample/backgrounds/scenic"
-            android:layout_weight="3"/>
+            android:contentDescription="@string/poster_of_the_movie" />
     </LinearLayout>
 
 
     <Button
         android:id="@+id/buttonAddToCalendar"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="end"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/watch_later"
-        android:layout_gravity="end"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        />
+        android:text="@string/watch_later" />
 
 </LinearLayout>
