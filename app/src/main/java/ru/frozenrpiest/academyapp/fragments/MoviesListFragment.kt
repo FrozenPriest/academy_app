@@ -9,8 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.transition.TransitionInflater
-import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialElevationScale
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.adapters.ItemAdapterMovie
 import ru.frozenrpiest.academyapp.adapters.OnMovieClicked
@@ -34,10 +33,8 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
         super.onCreate(savedInstanceState)
         repository = Repository()
 
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-
-        exitTransition = Hold()
-        reenterTransition = Hold()
+        exitTransition = MaterialElevationScale(false)
+        reenterTransition = MaterialElevationScale(true)
 
     }
 

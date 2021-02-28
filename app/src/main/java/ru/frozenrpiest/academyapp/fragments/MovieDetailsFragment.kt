@@ -1,5 +1,6 @@
 package ru.frozenrpiest.academyapp.fragments
 
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
@@ -8,13 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.google.android.material.transition.MaterialContainerTransform
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.adapters.ItemAdapterActors
 import ru.frozenrpiest.academyapp.adapters.LinearLayoutPagerManager
@@ -40,11 +41,14 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
         }
 
         sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        sharedElementReturnTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+            MaterialContainerTransform().apply {
+                drawingViewId = R.id.fragmentContainer
+                scrimColor = Color.TRANSPARENT
+            }
 
-        postponeEnterTransition();
+
+
+        postponeEnterTransition()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
