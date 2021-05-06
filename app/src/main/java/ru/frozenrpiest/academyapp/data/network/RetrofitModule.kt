@@ -4,6 +4,7 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.create
 import ru.frozenrpiest.academyapp.BuildConfig
@@ -14,8 +15,11 @@ object RetrofitModule {
         isLenient = true
     }
 
-    val okHttpClient = OkHttpClient().newBuilder()
+    private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+    private val okHttpClient = OkHttpClient().newBuilder()
+        .addInterceptor(logger)
         .build()
+
 
     @Suppress("EXPERIMENTAL_API_USAGE")
     private val retrofit = Retrofit.Builder()
@@ -32,6 +36,4 @@ object RetrofitModule {
     }
 
     external fun getMoviesApiKey(): String
-
-//
 }

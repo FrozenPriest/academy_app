@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import ru.frozenrpiest.academyapp.DataUtils
 import ru.frozenrpiest.academyapp.R
 import ru.frozenrpiest.academyapp.data.Movie
+import ru.frozenrpiest.academyapp.utils.DataUtils
 
 
 class ItemAdapterMovie(
@@ -42,7 +43,7 @@ class ItemAdapterMovie(
             ratingBar = view.findViewById(R.id.ratingBar)
             textViewGenres = view.findViewById(R.id.textViewGenres)
             imageViewPoster = view.findViewById(R.id.imageViewPoster)
-
+            layoutView = view.findViewById(R.id.vhLinearLayout)
         }
     }
 
@@ -71,10 +72,12 @@ class ItemAdapterMovie(
             .error(R.drawable.no_image)
             .into(holder.imageViewPoster)
 
-        holder.itemView.setOnClickListener {
-            clickListener.onClick(items[position])
-        }
 
+        holder.itemView.setOnClickListener {
+            clickListener.onClick(items[position], holder.layoutView)
+        }
+        holder.layoutView.transitionName =
+            context.resources.getString(R.string.transition_list_details, item.title)
     }
 
     override fun getItemCount(): Int {
@@ -90,6 +93,7 @@ class ItemAdapterMovie(
         lateinit var ratingBar: RatingBar
         lateinit var textViewGenres: TextView
         lateinit var imageViewPoster: ImageView
+        lateinit var layoutView: LinearLayout
 
 
     }
@@ -97,5 +101,5 @@ class ItemAdapterMovie(
 }
 
 interface OnMovieClicked {
-    fun onClick(movie: Movie)
+    fun onClick(movie: Movie, sharedView: View)
 }

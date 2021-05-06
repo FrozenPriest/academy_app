@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/movieDetailsScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/movie_details_background">
+    android:background="@color/movie_details_background"
+    android:transitionGroup="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,33 +29,31 @@
             android:id="@+id/movie_poster"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="67dp"
-            android:adjustViewBounds="false"
+            android:adjustViewBounds="true"
             android:contentDescription="@string/poster_of_the_movie"
-            android:cropToPadding="false"
             android:foreground="@drawable/fading_poster"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="@+id/movie_name"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/poster_avengers_big" />
 
         <TextView
             android:id="@+id/movie_name"
             style="@style/header"
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="254dp"
             android:layout_marginEnd="16dp"
             android:text="@string/avengers_end_game"
             android:textSize="44sp"
+            android:transitionName="@string/transition_list_details"
+            app:layout_constraintBottom_toBottomOf="@+id/movie_poster"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_poster" />
 
         <TextView
             android:id="@+id/textViewAgeRestriction"
@@ -81,6 +81,7 @@
             android:text="@string/action_adventure_fantasy"
             android:textColor="#FF3466"
             android:textSize="14sp"
+            app:autoSizeTextType="uniform"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_name" />
@@ -171,6 +172,25 @@
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageButtonWatchLater"
+            style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/watch_later"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewAgeRestriction"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewAgeRestriction"
+            app:srcCompat="@drawable/ic_baseline_watch_later_24" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.35" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

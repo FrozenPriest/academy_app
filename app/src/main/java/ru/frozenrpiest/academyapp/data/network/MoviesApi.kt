@@ -10,6 +10,13 @@ interface MoviesApi {
     @GET("configuration?")
     suspend fun getConfig(@Query("api_key") api_key: String = RetrofitModule.getMoviesApiKey()): Response
 
+    @GET("movie/top_rated?")
+    suspend fun getTopRatedMoviesId(
+        @Query("api_key") apiKey: String = RetrofitModule.getMoviesApiKey(),
+        @Query("language") language: String,
+        @Query("page") page: Int,
+    ): ResponseMoviesId
+
     @GET("movie/popular?")
     suspend fun getPopularMoviesId(
         @Query("api_key") apiKey: String = RetrofitModule.getMoviesApiKey(),

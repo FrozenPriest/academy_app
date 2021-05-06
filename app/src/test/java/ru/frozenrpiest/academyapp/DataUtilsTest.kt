@@ -1,6 +1,7 @@
 package ru.frozenrpiest.academyapp
 
 import junit.framework.TestCase
+import ru.frozenrpiest.academyapp.utils.DataUtils
 
 class DataUtilsTest : TestCase() {
 

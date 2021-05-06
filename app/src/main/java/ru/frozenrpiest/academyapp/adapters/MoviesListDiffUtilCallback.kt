@@ -26,6 +26,6 @@ class MoviesListDiffUtilCallback(
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldProduct = oldList[oldItemPosition]
         val newProduct = newList[newItemPosition]
-        return oldProduct == newProduct
+        return (oldProduct.id == newProduct.id) && (oldProduct.title == newProduct.title)
     }
 }
