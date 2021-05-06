@@ -29,7 +29,7 @@ class ItemAdapterMovie(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =  LayoutInflater.from(context).inflate(
+        val view = LayoutInflater.from(context).inflate(
             R.layout.view_holder_movie,
             parent,
             false
@@ -53,7 +53,8 @@ class ItemAdapterMovie(
             context.resources.getString(R.string.count_min),
             item.runtime
         )
-        holder.textViewReviews.text = context.resources.getQuantityString(R.plurals.count_reviews,
+        holder.textViewReviews.text = context.resources.getQuantityString(
+            R.plurals.count_reviews,
             item.numberOfRatings,
             item.numberOfRatings
         )
@@ -64,30 +65,31 @@ class ItemAdapterMovie(
         holder.ratingBar.rating = DataUtils.roundRating(item.ratings / 2)
         holder.textViewGenres.text = DataUtils.formatGenres(item.genres)
         Glide.with(context)
-                .load(item.poster)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.no_image)
-                .error(R.drawable.no_image)
-                .into(holder.imageViewPoster)
+            .load(item.poster)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(R.drawable.no_image)
+            .error(R.drawable.no_image)
+            .into(holder.imageViewPoster)
 
         holder.itemView.setOnClickListener {
             clickListener.onClick(items[position])
         }
 
     }
+
     override fun getItemCount(): Int {
         return items.size
     }
 
 
-    class ViewHolder(view: View) :RecyclerView.ViewHolder(view) {
-        lateinit var textViewName:TextView
-        lateinit var textViewDuration:TextView
-        lateinit var textViewReviews:TextView
-        lateinit var textViewAgeRestriction:TextView
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        lateinit var textViewName: TextView
+        lateinit var textViewDuration: TextView
+        lateinit var textViewReviews: TextView
+        lateinit var textViewAgeRestriction: TextView
         lateinit var ratingBar: RatingBar
-        lateinit var textViewGenres:TextView
-        lateinit var imageViewPoster:ImageView
+        lateinit var textViewGenres: TextView
+        lateinit var imageViewPoster: ImageView
 
 
     }
