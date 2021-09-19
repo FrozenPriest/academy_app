@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">Academy App</string>
+    <string name="poster_of_the_movie">Poster of the movie</string>
+    <string name="avengers_end_game">Avengers: Endgame</string>
+    <string name="pg13">13+</string>
+    <string name="action_adventure_fantasy">Action, Adventure, Fantasy</string>
+    <string name="storyline">Storyline</string>
+    <string name="storyline_avengers">After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.</string>
+    <string name="cast">Cast</string>
+    <string name="robert_downey_jr">Robert Downey Jr.</string>
+    <string name="back">Back</string>
+    <string name="count_min">%1$d min</string>
+    <string name="movies_list">Movies list</string>
+    <string name="favorite">Add to favorite</string>
+    <string name="actor_image">Actor image</string>
+    <string name="age_restriction">%1$d+</string>
+    <string name="overview_missing">Overview is missing!</string>
+    <string name="error_loading">Error loading movies</string>
+    <string name="top_movie">Top movie for you: %1$s</string>
+    <string name="channel_top_rated">Top rated</string>
+    <string name="channel_top_rated_description">Recommends top rated movie</string>
+    <string name="watch_later">Watch later</string>
+    <string name="watch_later_title">Watch later: %1$s</string>
+    <string name="transition_list_details">transitionListDetails%1$s</string>
+    <plurals name="count_reviews">
+        <item quantity="one">%1$d review</item>
+        <item quantity="other">%1$d reviews</item>
+    </plurals>
 </resources>
